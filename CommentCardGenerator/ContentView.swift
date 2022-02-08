@@ -20,12 +20,12 @@ struct ContentView: View {
                 })
             }
             VStack{
-                Button("Toggle - Area of Strength", action:{
+                Button("Toggle - Area of Strength/Weakness", action:{
                     toggleStrength()
                 })
             }
             VStack{
-                Text("In this subject I am feeling \(feelingString); a strong area is \(areaStrengthString) and an area of weakness is \(areaWeaknessString)")
+                Text("In this subject I am feeling \(feelingString); a strong area is \(areaStrengthString) and an area of weakness is \(areaWeaknessString).")
                     .padding()
             }
         }
