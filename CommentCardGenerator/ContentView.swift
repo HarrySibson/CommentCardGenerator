@@ -8,46 +8,55 @@
 import SwiftUI
 struct ContentView: View {
     @State private var feelingBool = false
-    @State private var feelingString = "sad"
-    @State private var areaStrengthBool = false
-    @State private var areaStrengthString = "EWs"
-    @State private var areaWeaknessString = "classwork"
+    var happinessString: String {
+        if happiness < 3 {
+            return "unhappy"
+        } else if happiness < 5 {
+            return "okay"
+        } else if happiness < 8 {
+            return "happy"
+        }else{
+            return("very Happy")
+        }
+    }
+    @State private var happiness: Double = 1.0
+    @State private var areaStrengthArray = ["EWs","classwork","exam style questions"]
+    @State private var areaWeaknessArray = ["EWs","classwork","exam style questions"]
+    @State private var areaStrengthI = 0
+    @State private var areaWeaknessI = 0
+    
     var body: some View {
         Form {
             VStack {
-                Button("Toggle - Happy/Sad",action:{
-                    toggleFeeling()
-                })
-            }
-            VStack{
-                Button("Toggle - Area of Strength/Weakness", action:{
+                Text("Happiness Level")
+                Slider(value: $happiness, in: 1...10)
+                Button("Toggle - Area of Strength", action:{
                     toggleStrength()
                 })
+                Button("Toggle - Area of Weakness", action:{
+                    toggleWeakness()
+                })
             }
             VStack{
-                Text("In this subject I am feeling \(feelingString); a strong area is \(areaStrengthString) and an area of weakness is \(areaWeaknessString).")
+                Text("In this subject I am \(happinessString); a strong area is \(areaStrengthArray[areaStrengthI]) but an area of weakness is \(areaWeaknessArray[areaWeaknessI])")
                     .padding()
             }
         }
 
     }
     
-    func toggleFeeling() {
-        feelingBool.toggle()
-        if feelingBool == true{
-            feelingString = "happy"
-        } else{
-            feelingString = "sad"
+    func toggleStrength() {
+        if areaStrengthI == areaStrengthArray.count-1{
+            areaStrengthI = 0
+        } else {
+            areaStrengthI += 1
         }
     }
-    func toggleStrength() {
-        areaStrengthBool.toggle()
-        if areaStrengthBool == true{
-            areaStrengthString = "classwork"
-            areaWeaknessString = "EWs"
-        } else{
-            areaStrengthString = "EWs"
-            areaWeaknessString = "classwork"
+    func toggleWeakness() {
+        if areaWeaknessI == areaWeaknessArray.count-1{
+            areaWeaknessI = 0
+        } else {
+            areaWeaknessI += 1
         }
     }
     
