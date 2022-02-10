@@ -67,7 +67,7 @@ struct ContentView: View {
                 })
             }
             VStack{
-                Text("In \(subject[subjectI]) I am \(happinessString), exerting what I feel is \(effortString) on it. A strong area is \(areaStrengthArray[areaStrengthI]) but an area of weakness is \(areaWeaknessArray[areaWeaknessI]).")
+                Text("In \(subject[subjectI]) I am \(happinessString), exerting what I feel is \(effortString) on it. A strong area of mine is \(areaStrengthArray[areaStrengthI]) but an area of weakness is \(areaWeaknessArray[areaWeaknessI]).")
                     .padding()
             }
         }
