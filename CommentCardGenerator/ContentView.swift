@@ -7,7 +7,7 @@
 
 import SwiftUI
 struct ContentView: View {
-    @State private var feelingBool = false
+    
     var happinessString: String {
         if happiness < 3 {
             return "unhappy"
@@ -16,29 +16,58 @@ struct ContentView: View {
         } else if happiness < 8 {
             return "happy"
         }else{
-            return("very Happy")
+            return("very happy")
         }
     }
+    
+    var effortString: String {
+        if effort < 3 {
+            return "barely any effort"
+        } else if effort < 7 {
+            return "a reasonable amount of effort"
+        } else{
+            return "too much effort"
+        }
+    }
+    
+    @State private var effort: Double = 1.0
     @State private var happiness: Double = 1.0
     @State private var areaStrengthArray = ["EWs","classwork","exam style questions"]
     @State private var areaWeaknessArray = ["EWs","classwork","exam style questions"]
+    @State private var subject = ["math","french","geograpghy"]
     @State private var areaStrengthI = 0
     @State private var areaWeaknessI = 0
+    @State private var subjectI = 0
+    
+    
     
     var body: some View {
         Form {
-            VStack {
-                Text("Happiness Level")
+            HStack {
+                Text("Happiness Level:")
                 Slider(value: $happiness, in: 1...10)
+            }
+            HStack{
+                Text("Effort level:")
+                Slider(value: $effort, in: 1...10)
+            }
+            VStack {
+                Button("Toggle - Subject", action:{
+                    toggleSubject()
+                })
+            }
+            VStack{
                 Button("Toggle - Area of Strength", action:{
                     toggleStrength()
                 })
+            }
+            VStack{
                 Button("Toggle - Area of Weakness", action:{
                     toggleWeakness()
                 })
             }
             VStack{
-                Text("In this subject I am \(happinessString); a strong area is \(areaStrengthArray[areaStrengthI]) but an area of weakness is \(areaWeaknessArray[areaWeaknessI])")
+                Text("In \(subject[subjectI]) I am \(happinessString), exerting what I feel is \(effortString) on it. A strong area is \(areaStrengthArray[areaStrengthI]) but an area of weakness is \(areaWeaknessArray[areaWeaknessI]).")
                     .padding()
             }
         }
@@ -52,11 +81,20 @@ struct ContentView: View {
             areaStrengthI += 1
         }
     }
+    
     func toggleWeakness() {
         if areaWeaknessI == areaWeaknessArray.count-1{
             areaWeaknessI = 0
         } else {
             areaWeaknessI += 1
+        }
+    }
+    
+    func toggleSubject() {
+        if subjectI == subject.count-1{
+            subjectI = 0
+        } else {
+            subjectI += 1
         }
     }
     
