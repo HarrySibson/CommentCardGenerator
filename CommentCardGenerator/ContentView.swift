@@ -8,48 +8,69 @@
 import SwiftUI
 struct ContentView: View {
     
-    var happinessString: String {
-        if happiness < 3 {
-            return "unhappy"
-        } else if happiness < 5 {
-            return "okay"
-        } else if happiness < 8 {
-            return "happy"
+    var feelingString: String {
+        if feeling < 3 {
+            return "difficult, I haven't enjoyed"
+        } else if feeling < 5 {
+            return "okay, I haven't hugely enjoyed"
+        } else if feeling < 8 {
+            return "fun, I have enjoyed"
         }else{
-            return("very happy")
+            return("really fun, I have really enjoyed")
         }
     }
     
-    var effortString: String {
-        if effort < 3 {
-            return "barely any effort"
-        } else if effort < 7 {
-            return "a reasonable amount of effort"
+    var AttainmentString: String {
+        if attainment < 3 {
+            if topicI == 2{
+                return "not very much as I have made a lot of mistakes"
+            }else{
+                return "not very much"
+            }
+        } else if attainment < 5 {
+            if topicI == 2{
+                return "a little as I have made quite a few mistakes"
+            }else{
+                return "a little"
+            }
+        } else if attainment < 8 {
+            if topicI == 2{
+                return "a fair amount as I have made a few mistakes"
+            }else{
+                return "a fair amount"
+            }
         } else{
-            return "too much effort"
+            if topicI == 2{
+                return "quite a lot as I haven't made many mistakes"
+            }else{
+                return "quite a lot"
+            }
         }
     }
     
-    @State private var effort: Double = 1.0
-    @State private var happiness: Double = 1.0
-    @State private var areaStrengthArray = ["EWs","classwork","exam style questions"]
-    @State private var areaWeaknessArray = ["EWs","classwork","exam style questions"]
-    @State private var subject = ["math","french","geograpghy"]
-    @State private var areaStrengthI = 0
+    @State private var attainment: Double = 1.0
+    @State private var feeling: Double = 1.0
+    @State private var topicArray = ["EWs","classwork","tests"]
+    @State private var areaWeaknessArray = ["EWs","classwork","tests"]
+    @State private var reasonArray = ["they are quite hard","I dont understand it sometimes","it is quite hard","I dont understand them sometimes"]
+    @State private var subject = ["Math","French","Geograpghy"]
+    @State private var topicI = 0
     @State private var areaWeaknessI = 0
+    @State private var reasonI = 0
     @State private var subjectI = 0
-    
     
     
     var body: some View {
         Form {
-            HStack {
-                Text("Happiness Level:")
-                Slider(value: $happiness, in: 1...10)
-            }
-            HStack{
-                Text("Effort level:")
-                Slider(value: $effort, in: 1...10)
+            VStack {
+                HStack{
+                    Text("Subject Feelings:")
+                    Slider(value: $feeling, in: 1...10)
+                }
+                HStack{
+                    Text("Attainment level:")
+                    Slider(value: $attainment, in: 1...10)
+                }
             }
             VStack {
                 Button("Toggle - Subject", action:{
@@ -57,7 +78,7 @@ struct ContentView: View {
                 })
             }
             VStack{
-                Button("Toggle - Area of Strength", action:{
+                Button("Toggle - Attainment topic", action:{
                     toggleStrength()
                 })
             }
@@ -67,7 +88,13 @@ struct ContentView: View {
                 })
             }
             VStack{
-                Text("In \(subject[subjectI]) I am \(happinessString), exerting what I feel is \(effortString) on it. A strong area of mine is \(areaStrengthArray[areaStrengthI]) but an area of weakness is \(areaWeaknessArray[areaWeaknessI]).")
+                Button("Toggle - Weakness Reason", action:{
+                    toggleWeaknessReason()
+                })
+            }
+            
+            VStack{
+                Text("\(subject[subjectI]) has been \(feelingString) this half. In \(topicArray[topicI]) I have achieved what I feel is \(AttainmentString). An area of weakness of mine is \(areaWeaknessArray[areaWeaknessI]) because \(reasonArray[reasonI]).")
                     .padding()
             }
         }
@@ -75,10 +102,10 @@ struct ContentView: View {
     }
     
     func toggleStrength() {
-        if areaStrengthI == areaStrengthArray.count-1{
-            areaStrengthI = 0
+        if topicI == topicArray.count-1{
+            topicI = 0
         } else {
-            areaStrengthI += 1
+            topicI += 1
         }
     }
     
@@ -87,6 +114,14 @@ struct ContentView: View {
             areaWeaknessI = 0
         } else {
             areaWeaknessI += 1
+        }
+    }
+    
+    func toggleWeaknessReason() {
+        if reasonI == reasonArray.count-1{
+            reasonI = 0
+        } else {
+            reasonI += 1
         }
     }
     
