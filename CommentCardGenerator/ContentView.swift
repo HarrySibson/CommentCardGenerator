@@ -47,7 +47,7 @@ struct ContentView: View {
             }
         }
     }
-    
+    var currentDate: Date = Date()
     @State private var attainment: Double = 1.0
     @State private var feeling: Double = 1.0
     @State private var topicArray = ["EWs","classwork","tests"]
@@ -62,6 +62,9 @@ struct ContentView: View {
     
     var body: some View {
         Form {
+            Section(header: Text("\(getShortDate())").foregroundColor(.black)){
+                
+            }
             VStack {
                 HStack{
                     Text("Subject Feelings:")
@@ -131,6 +134,13 @@ struct ContentView: View {
         } else {
             subjectI += 1
         }
+    }
+    
+    func getShortDate() -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        
+        return formatter.string(from: currentDate)
     }
     
 }
